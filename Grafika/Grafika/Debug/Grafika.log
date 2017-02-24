@@ -1,0 +1,5 @@
+﻿  Source.cpp
+c:\users\arito\source\repos\grafikakomputerowa\grafika\grafika\source.cpp(32): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\arito\source\repos\grafikakomputerowa\grafika\grafika\source.cpp(33): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+  Grafika.vcxproj -> C:\Users\Arito\Source\Repos\GrafikaKomputerowa\Grafika\Debug\Grafika.exe
+  Grafika.vcxproj -> C:\Users\Arito\Source\Repos\GrafikaKomputerowa\Grafika\Debug\Grafika.pdb (Partial PDB)
