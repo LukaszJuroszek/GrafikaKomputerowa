@@ -17,7 +17,7 @@ GLfloat windowWidth;
 GLfloat windowHeight;
 ///////////////////////////////////////////////////////////
 // Wywo³ywana w celu przerysowania sceny
-void RenderScene(void) {
+void RenderScene() {
 	// Wyczyszczenie okna aktualnym kolorem czyszcz¹cym
 	glClear(GL_COLOR_BUFFER_BIT);
 	// Aktualny kolor rysuj¹cy - czerwony
@@ -29,8 +29,8 @@ void RenderScene(void) {
 	GLfloat scale = 50.0f;
 	for (int i = 0; i < numberOfSides; i++)
 	{
-		GLfloat	xx = x + scale * sin(2.0*M_PI*i / numberOfSides);
-		GLfloat yy = y + scale * cos(2.0*M_PI*i / numberOfSides);
+		GLfloat	xx = windowWidth/2.0f + scale * sin(2.0*M_PI*i / numberOfSides);
+		GLfloat yy = windowHeight/2.0f + scale * cos(2.0*M_PI*i / numberOfSides);
 		glVertex2f(xx, yy);
 	}
 	glEnd();
@@ -63,9 +63,9 @@ void TimerFunction(int value) {
 }
 ///////////////////////////////////////////////////////////
 // Konfigurowanie stanu renderowania
-void SetupRC(void) {
+void SetupRC() {
 	// Ustalenie niebieskiego koloru czyszcz¹cego     
-	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+	glClearColor(0.6f, 0.4f, 0.12f, 1.0f);
 }
 ///////////////////////////////////////////////////////////
 // Wywo³ywana przez bibliotek GLUT przy ka¿dej zmianie wielkoœci okna
@@ -105,7 +105,6 @@ void program1(int argc, char*argv[]) {
 	SetupRC();
 	glutMainLoop();
 }
-///////////////////////////////////////////////////////////
 // G³ówny punkt wejœcia programu
 void main(int argc, char* argv[]) {
 	program1(argc, argv);
