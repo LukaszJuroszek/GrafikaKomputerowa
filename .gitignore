@@ -28,3 +28,5 @@
 *.out
 *.app
 /Grafika/Grafika.VC.VC.opendb
+/Grafika/Debug
+/Grafika/ipch
