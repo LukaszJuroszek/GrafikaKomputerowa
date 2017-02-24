@@ -6,69 +6,55 @@
 #include <GL/glut.h>
 #endif
 // Pocztkowy rozmiar i pozycja 
+
 GLfloat x = 100.0f;
 GLfloat y = 150.0f;
 GLsizei rsize = 50;
 // Rozmiar kroku (liczba pikseli) w osi x i y
 GLfloat xstep = 1.0f;
 GLfloat ystep = 1.0f;
+//rozmiar okna
+int width = 800;
+int heigth = 600;
+// iloœæ œcian wielok¹tu
+int numberOfSides =4;
 // Dane zmieniajcych siê rozmiarów okna
 GLfloat windowWidth;
 GLfloat windowHeight;
-///////////////////////////////////////////////////////////
 // Wywo³ywana w celu przerysowania sceny
 void RenderScene() {
-	// Wyczyszczenie okna aktualnym kolorem czyszcz¹cym
 	glClear(GL_COLOR_BUFFER_BIT);
-	// Aktualny kolor rysuj¹cy - czerwony
 	glColor3f(1.0f, 0.0f, 0.0f);
-
-	// Rysowanie n elementowego polygonu ( pentagramu ) 
 	glBegin(GL_POLYGON);
-	int numberOfSides = 5;
-	GLfloat scale = 50.0f;
 	for (int i = 0; i < numberOfSides; i++)
 	{
-		GLfloat	xx = windowWidth/2.0f + scale * sin(2.0*M_PI*i / numberOfSides);
-		GLfloat yy = windowHeight/2.0f + scale * cos(2.0*M_PI*i / numberOfSides);
+		GLfloat	xx = x + rsize * sin(2.0*M_PI*i / numberOfSides);
+		GLfloat yy = y + rsize * cos(2.0*M_PI*i / numberOfSides);
 		glVertex2f(xx, yy);
 	}
 	glEnd();
-	// Wys³anie poleceñ do wykonania - !!! dla animacji to jest inne polecenie
 	glutSwapBuffers();
 }
-// Wywo³ywana przez bibliotek GLUT w czasie, gdy okno nie
-// jest przesuwane ani nie jest zmieniana jego wielkoœæ
 void TimerFunction(int value) {
-	// Odwrócenie kierunku, je¿eli osi¹gniêto lew¹ lub praw¹ krawêdŸ
 	if (x > windowWidth - rsize || x < 0)
 		xstep = -xstep;
-	// Odwrócenie kierunku, je¿eli osi¹gniêto doln¹ lub górn¹ krawêdŸ
 	if (y > windowHeight - rsize || y < 0)
 		ystep = -ystep;
-	// Kontrola obramowania. Wykonywana jest na wypadek, gdyby okno     
-	// zmniejszy³o swoj wielkoœæ w czasie, gdy kwadrat odbija³ siê od     
-	// krawêdzi, co mog³oby spowodowaæ, ¿e znalaz³ by siê poza      
-	// przestrzeni¹ ograniczajc¹.     
 	if (x > windowWidth - rsize)
 		x = windowWidth - rsize - 1;
 	if (y > windowHeight - rsize)
 		y = windowHeight - rsize - 1;
-	// Wykonanie przesuniêcia kwadratu
 	x += xstep;
 	y += ystep;
-	// Ponowne rysowanie sceny z nowymi wspó³rzêdnymi  
 	glutPostRedisplay();
-	glutTimerFunc(10, TimerFunction, 1);
+
+	glutTimerFunc(33, TimerFunction, 1);
 }
-///////////////////////////////////////////////////////////
-// Konfigurowanie stanu renderowania
+
 void SetupRC() {
 	// Ustalenie niebieskiego koloru czyszcz¹cego     
 	glClearColor(0.6f, 0.4f, 0.12f, 1.0f);
 }
-///////////////////////////////////////////////////////////
-// Wywo³ywana przez bibliotek GLUT przy ka¿dej zmianie wielkoœci okna
 void ChangeSize(GLsizei w, GLsizei h) {
 	// Zabezpieczenie przed dzieleniem przez zero
 	if (h == 0)
@@ -95,19 +81,31 @@ void ChangeSize(GLsizei w, GLsizei h) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
-void program1(int argc, char*argv[]) {
+void program1and2(int argc, char*argv[]) {
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(800, 600);
+	glutInitWindowSize(width, heigth);
 	glutCreateWindow("Mój pierwszy program w GLUT");
 	glutDisplayFunc(RenderScene);
 	glutReshapeFunc(ChangeSize);
+	glutTimerFunc(33, TimerFunction, 1);
 	SetupRC();
 	glutMainLoop();
 }
-// G³ówny punkt wejœcia programu
+void program3(int argc, char*argv[]) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutInitWindowSize(width, heigth);
+	glutCreateWindow("Mój pierwszy program w GLUT");
+	glutDisplayFunc(RenderScene);
+	glutReshapeFunc(ChangeSize);
+	glutTimerFunc(33, TimerFunction, 1);
+	SetupRC();
+	glutMainLoop();
+}
 void main(int argc, char* argv[]) {
-	program1(argc, argv);
+	program3(argc, argv);
 	//glutInit(&argc, argv);
 	//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	//glutInitWindowSize(800, 600);
