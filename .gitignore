@@ -3,7 +3,7 @@
 *.lo
 *.o
 *.obj
-
+*.tlog
 # Precompiled Headers
 *.gch
 *.pch
@@ -30,4 +30,3 @@
 /Grafika/Grafika.VC.VC.opendb
 /Grafika/Debug
 /Grafika/ipch
-*/debug/
