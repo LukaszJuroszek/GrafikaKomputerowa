@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Grafika", "Grafika\Grafika.vcxproj", "{63CD1D00-D330-4D60-9C90-689A29D130D4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Program1", "Grafika\Grafika.vcxproj", "{63CD1D00-D330-4D60-9C90-689A29D130D4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Program2And3", "Program2And3\Program2And3.vcxproj", "{7F0DF313-04E8-4066-AC77-D0C414EA379F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Program4", "Program4\Program4.vcxproj", "{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,22 @@ Global
 		{63CD1D00-D330-4D60-9C90-689A29D130D4}.Release|x64.Build.0 = Release|x64
 		{63CD1D00-D330-4D60-9C90-689A29D130D4}.Release|x86.ActiveCfg = Release|Win32
 		{63CD1D00-D330-4D60-9C90-689A29D130D4}.Release|x86.Build.0 = Release|Win32
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Debug|x64.ActiveCfg = Debug|x64
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Debug|x64.Build.0 = Debug|x64
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Debug|x86.ActiveCfg = Debug|Win32
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Debug|x86.Build.0 = Debug|Win32
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Release|x64.ActiveCfg = Release|x64
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Release|x64.Build.0 = Release|x64
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Release|x86.ActiveCfg = Release|Win32
+		{7F0DF313-04E8-4066-AC77-D0C414EA379F}.Release|x86.Build.0 = Release|Win32
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Debug|x64.ActiveCfg = Debug|x64
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Debug|x64.Build.0 = Debug|x64
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Debug|x86.ActiveCfg = Debug|Win32
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Debug|x86.Build.0 = Debug|Win32
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Release|x64.ActiveCfg = Release|x64
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Release|x64.Build.0 = Release|x64
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Release|x86.ActiveCfg = Release|Win32
+		{8B0AB506-C3A5-4418-A2E8-6BD0A58C95B1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
