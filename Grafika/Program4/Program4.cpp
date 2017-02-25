@@ -66,7 +66,7 @@ void RenderScene() {
 		helperY[i] = yB;
 		glVertex2f(xB, yB);
 	}
-	alfa += 0.1f;
+	alfa += 0.01f;
 	glEnd();
 	glutSwapBuffers();
 }
