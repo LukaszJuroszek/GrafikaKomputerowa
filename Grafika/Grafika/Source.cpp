@@ -40,8 +40,6 @@ void RenderScene() {
 	}
 	glEnd();
 	glutSwapBuffers();
-	glutSwapBuffers();
-	 
 }
 void TimerFunction(int value) {
 	//todo: get very left vertex and compare x&y is < than radius from center of figure to this verteks
