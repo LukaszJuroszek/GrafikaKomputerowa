@@ -1,5 +1,6 @@
 ﻿  Source.cpp
-c:\users\arito\source\repos\grafikakomputerowa\grafika\grafika\source.cpp(35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\arito\source\repos\grafikakomputerowa\grafika\grafika\source.cpp(36): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\arito\source\repos\grafikakomputerowa\grafika\grafika\source.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\arito\source\repos\grafikakomputerowa\grafika\grafika\source.cpp(57): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\arito\source\repos\grafikakomputerowa\grafika\grafika\source.cpp(58): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Grafika.vcxproj -> C:\Users\Arito\Source\Repos\GrafikaKomputerowa\Grafika\Debug\Grafika.exe
   Grafika.vcxproj -> C:\Users\Arito\Source\Repos\GrafikaKomputerowa\Grafika\Debug\Grafika.pdb (Partial PDB)

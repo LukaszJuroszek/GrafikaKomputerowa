@@ -1,17 +1,19 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <iostream>;
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
 #endif
-GLfloat x = 100.0f;
+using namespace std;
+GLfloat x = 50.0f;
 GLfloat y = 150.0f;
 //size of polyogon figure
-GLsizei polygonRadiusSize = 100;
+GLsizei polygonRadiusSize = 50;
 // Rozmiar kroku (liczba pikseli) w osi x i y
 // number of sides of polygon
-int numberOfSides = 5;
+int numberOfSides =9;
 GLfloat xstep = 1.0f;
 GLfloat ystep = 1.0f;
 //window size
@@ -20,13 +22,33 @@ int heigth = 600;
 // Dane zmieniajcych siê rozmiarów okna
 GLfloat windowWidth;
 GLfloat windowHeight;
-float** helperMatrix = new float*[numberOfSides];
-
+float * helperX = new float[numberOfSides];
+float * helperY = new float[numberOfSides];
+float min(float * inArray) {
+	float min = inArray[0];
+	for (int i = 1; i < numberOfSides; i++)
+	{
+		if (min > inArray[i])
+		{
+			min = inArray[i];
+		}
+	}
+	return min;
+}
+float max(float * inArray) {
+	float max = inArray[0];
+	for (int i = 1; i < numberOfSides; i++)
+	{
+		if (max < inArray[i])
+		{
+			max = inArray[i];
+		}
+		
+	}
+	return max;
+}
 // Wywo³ywana w celu przerysowania sceny
 void RenderScene() {
-	for (int i = 0; i < numberOfSides; ++i)
-		helperMatrix[i] = new float[numberOfSides];
-
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glBegin(GL_POLYGON);
@@ -34,25 +56,27 @@ void RenderScene() {
 	{
 		float xx = x + polygonRadiusSize * sin(2.0*M_PI*i / numberOfSides);
 		float yy = y + polygonRadiusSize * cos(2.0*M_PI*i / numberOfSides);
-		helperMatrix[i][0] = xx;
-		helperMatrix[i][1] = yy;
+		helperX[i] = xx;
+		helperY[i] = yy;
+		//cout << round(xx) << ","<< round(yy) <<"  " <<i<< endl;
 		glVertex2f(xx, yy);
 	}
+	
 	glEnd();
 	glutSwapBuffers();
 }
 void TimerFunction(int value) {
-	//todo: get very left vertex and compare x&y is < than radius from center of figure to this verteks
-
-	int corretion = numberOfSides % 2 == 0 ? 50 : 0;
-	if (x > windowWidth - polygonRadiusSize || x < polygonRadiusSize - corretion)
+	float minFromX = min(helperX); // left
+	float maxFromX = max(helperX); // rigth
+	float minFromY = min(helperY); // bottom
+	float maxFromY = max(helperY); // top
+	//ystep = 0;
+	if (x > windowWidth - polygonRadiusSize || x < polygonRadiusSize)
 		xstep = -xstep;
-	if (y > windowHeight - polygonRadiusSize || y < polygonRadiusSize - corretion)
+	if (y > windowHeight - polygonRadiusSize || y < polygonRadiusSize-minFromY)
 		ystep = -ystep;
-	if (x > windowWidth - polygonRadiusSize)
-		x = windowWidth - polygonRadiusSize - 1;
-	if (y > windowHeight - polygonRadiusSize)
-		y = windowHeight - polygonRadiusSize - 1;
+	/*if (y > windowHeight - polygonRadiusSize || (minFromY-polygonRadiusSize) <0)
+		ystep = -ystep;*/
 	x += xstep;
 	y += ystep;
 	glutPostRedisplay();
@@ -111,9 +135,8 @@ void program3(int argc, char*argv[]) {
 	glutTimerFunc(10, TimerFunction, 1);
 	SetupRC();
 	glutMainLoop();
-	for (int i = 0; i < numberOfSides; ++i)
-		delete helperMatrix[i];
-	delete helperMatrix;
+	delete helperX;
+	delete helperY;
 
 }
 void main(int argc, char* argv[]) {
