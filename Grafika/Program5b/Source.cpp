@@ -74,12 +74,18 @@ int parseCinToInt() {
 }
 void mouse(int button, int state, int xIn, int yIn)
 {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-	{
+	//if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	//{
 		mousePoint.x = xIn;
 		mousePoint.y = -yIn;
-		numberOfSides = parseCinToInt();
-	}
+	//	numberOfSides = parseCinToInt();
+	//}
+	GetWorldCor();
+	glutPostRedisplay();
+}
+void mouseFunction(int xIn,int yIn) {
+	mousePoint.x = xIn;
+	mousePoint.y = -yIn;
 	GetWorldCor();
 	glutPostRedisplay();
 }
@@ -132,6 +138,7 @@ int main(int argc, char* argv[]) {
 	glutInitWindowSize(width, heigth);
 	glutCreateWindow("Program5");
 	glutMouseFunc(mouse);
+	glutMotionFunc(mouseFunction);
 	glutDisplayFunc(RenderScene);
 	glutReshapeFunc(ChangeSize);
 	glutTimerFunc(10, TimerFunction, 1);

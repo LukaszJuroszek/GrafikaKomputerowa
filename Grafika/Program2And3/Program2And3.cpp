@@ -174,6 +174,6 @@ void program2And3(int argc, char*argv[]) {
 }
 void main(int argc, char* argv[]) {
 	//program2And3(argc, argv);
-	//program3HomeWork(argc, argv);
+	program3HomeWork(argc, argv);
 
 }
