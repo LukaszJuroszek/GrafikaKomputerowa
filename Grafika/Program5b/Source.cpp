@@ -8,18 +8,11 @@
 #endif
 using namespace std;
 GLsizei polygonRadiusSize = 50;
-// Rozmiar kroku (liczba pikseli) w osi x i y
-// number of sides of polygon ( pentagon )
 int numberOfSides = 5;
-//for mouse point translating to world cor
 POINT mousePoint;
 int width = 800;
 int heigth = 600;
 GLdouble posX, posY, posZ;
-GLfloat x = 0;
-GLfloat y = 0;
-float * helperX = new float[numberOfSides];
-float * helperY = new float[numberOfSides];
 float min(float * inArray) {
 	float min = inArray[0];
 	for (int i = 1; i < numberOfSides; i++)
@@ -42,7 +35,7 @@ float max(float * inArray) {
 	}
 	return max;
 }
-void  GetOGLPos()
+void  GetWorldCor()
 {
 	GLint viewport[4];
 	GLdouble modelview[16];
@@ -52,21 +45,42 @@ void  GetOGLPos()
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	double winX = (double)mousePoint.x;
 	double winY = viewport[3] - (double)mousePoint.y;
-	cout << posX << " " << posY << " " << posY << endl;
 	gluUnProject(mousePoint.x, mousePoint.y, 0, modelview, projection, viewport, &posX, &posY, &posZ);
-	cout << posX << " " << posY << " " << posY << endl;
 	posY += heigth;
+}
+int parseCinToInt() {
+	int input;
+	while (true)
+	{
+		cout << "insert number of sides in polygon:" << endl;
+		cin >> input;
+		try {
+			if (cin.fail()) {
+				cout <<  "error while parsing cin";
+			}
+			if (input>2) {
+				return input;
+			}
+			else
+			{
+				cout << "Number should be greater than 2!" << endl;
+			}
+		}
+		catch (char* error) {
+			cout << error << endl;
+			break;
+		}
+	}
 }
 void mouse(int button, int state, int xIn, int yIn)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		cout << "mouse x" << xIn << endl;
-		cout << "mouse y" << -yIn << endl;
 		mousePoint.x = xIn;
 		mousePoint.y = -yIn;
+		numberOfSides = parseCinToInt();
 	}
-	GetOGLPos();
+	GetWorldCor();
 	glutPostRedisplay();
 }
 void drawPolygon() {
@@ -75,8 +89,6 @@ void drawPolygon() {
 	{
 		float xx = posX + polygonRadiusSize * sin(2.0*M_PI*i / numberOfSides);
 		float yy = posY + polygonRadiusSize * cos(2.0*M_PI*i / numberOfSides);
-		helperX[i] = xx;
-		helperY[i] = yy;
 		glVertex2f(xx, yy);
 	}
 	glEnd();
@@ -125,7 +137,5 @@ int main(int argc, char* argv[]) {
 	glutTimerFunc(10, TimerFunction, 1);
 	SetupRC();
 	glutMainLoop();
-	delete helperX;
-	delete helperY;
 	return 0;
 }
