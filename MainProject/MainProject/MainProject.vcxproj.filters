@@ -18,19 +18,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Desktop\Nowy folder\Program1.cpp">
+    <ClCompile Include="Program1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\Nowy folder\Program2And3.cpp">
+    <ClCompile Include="Program2And3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\Nowy folder\Program4.cpp">
+    <ClCompile Include="Program4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\Nowy folder\Program5.cpp">
+    <ClCompile Include="Program5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\Nowy folder\Program5b.cpp">
+    <ClCompile Include="Program5b.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
