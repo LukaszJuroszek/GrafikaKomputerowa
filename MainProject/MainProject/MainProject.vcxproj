@@ -114,11 +114,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Lab2.cpp" />
     <ClCompile Include="Program1.cpp" />
     <ClCompile Include="Program2And3.cpp" />
     <ClCompile Include="Program4.cpp" />
     <ClCompile Include="Program5.cpp" />
     <ClCompile Include="Program5b.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\packages\glext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -33,5 +33,13 @@
     <ClCompile Include="Program5b.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Lab2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\packages\glext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
