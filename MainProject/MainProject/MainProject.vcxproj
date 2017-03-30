@@ -127,6 +127,10 @@
     <ClCompile Include="Lab2progr2.cpp" />
     <ClCompile Include="Lab2program3.cpp" />
     <ClCompile Include="Lab2program4.cpp" />
+    <ClCompile Include="Lab3program1.cpp" />
+    <ClCompile Include="lab3zaj2.cpp" />
+    <ClCompile Include="lab3zaj2program2.cpp" />
+    <ClCompile Include="lab3zaj2program3.cpp" />
     <ClCompile Include="Program1.cpp" />
     <ClCompile Include="Program2And3.cpp" />
     <ClCompile Include="Program4.cpp" />

@@ -13,10 +13,13 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Lab2">
+    <Filter Include="Source Files\Lab3zaj2">
+      <UniqueIdentifier>{eaafc959-1a54-48c7-b312-092661b94e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lab2zaj3">
       <UniqueIdentifier>{d1bfca46-13a6-40d1-a921-de5b55c7f62c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Lab1">
+    <Filter Include="Source Files\Lab1zaj1">
       <UniqueIdentifier>{c8b3b9f0-4f21-48d3-8c0b-39c28a77a9c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -25,34 +28,46 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Lab2program3.cpp">
-      <Filter>Source Files\Lab2</Filter>
+      <Filter>Source Files\Lab2zaj3</Filter>
     </ClCompile>
     <ClCompile Include="Lab2.cpp">
-      <Filter>Source Files\Lab2</Filter>
+      <Filter>Source Files\Lab2zaj3</Filter>
     </ClCompile>
     <ClCompile Include="Lab2progr2.cpp">
-      <Filter>Source Files\Lab2</Filter>
+      <Filter>Source Files\Lab2zaj3</Filter>
     </ClCompile>
     <ClCompile Include="Program1.cpp">
-      <Filter>Source Files\Lab1</Filter>
+      <Filter>Source Files\Lab1zaj1</Filter>
     </ClCompile>
     <ClCompile Include="Program2And3.cpp">
-      <Filter>Source Files\Lab1</Filter>
+      <Filter>Source Files\Lab1zaj1</Filter>
     </ClCompile>
     <ClCompile Include="Program4.cpp">
-      <Filter>Source Files\Lab1</Filter>
+      <Filter>Source Files\Lab1zaj1</Filter>
     </ClCompile>
     <ClCompile Include="Program5.cpp">
-      <Filter>Source Files\Lab1</Filter>
+      <Filter>Source Files\Lab1zaj1</Filter>
     </ClCompile>
     <ClCompile Include="Program5b.cpp">
-      <Filter>Source Files\Lab1</Filter>
+      <Filter>Source Files\Lab1zaj1</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\Downloads\targa.cpp">
-      <Filter>Source Files\Lab2</Filter>
+      <Filter>Source Files\Lab2zaj3</Filter>
     </ClCompile>
     <ClCompile Include="Lab2program4.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lab3zaj2.cpp">
+      <Filter>Source Files\Lab3zaj2</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab3program1.cpp">
+      <Filter>Source Files\Lab3zaj2</Filter>
+    </ClCompile>
+    <ClCompile Include="lab3zaj2program2.cpp">
+      <Filter>Source Files\Lab3zaj2</Filter>
+    </ClCompile>
+    <ClCompile Include="lab3zaj2program3.cpp">
+      <Filter>Source Files\Lab3zaj2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
