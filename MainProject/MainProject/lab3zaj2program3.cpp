@@ -1,4 +1,5 @@
 ﻿#include <math.h>
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -212,13 +213,14 @@ void SpecialKeys(int key, int x, int y)
 void RenderScene(void)
 {
 	GLTVector3 vNormal;
-	GLTVector3 vCorners[5] = { { 0.0f, .80f, 0.0f }, // Góra 0
-	{ -0.5f, 0.0f, -.50f }, // Lewy tył 1
-	{ 0.5f, 0.0f, -0.50f }, // Prawy tył 2
-	{ 0.5f, 0.0f, 0.5f }, // Prawy przód 3
-	{ -0.5f, 0.0f, 0.5f } }; // Lewy przód 4
+	GLTVector3 vCorners[6] = { { 0.0f, 1.0f, 0.0f }, // Góra 0
+	{ 0.0f, 0.0f, 1.0f }, // Lewy tył 1
+	{0.95f, 0.0f, 0.3f}, // Prawy tył 2
+	{ 0.59f, 0.0f, -0.8f }, // Prawy przód 3
+	{ -0.59f, 0.0f,-0.8f },
+	{ -0.95f, 0.0f, 0.3f }, }; // Lewy przód 4
 							 // Czyszczenie okna aktualnym kolorem
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// Zapisanie stanu macierzy i wykonanie obrotów
 	glPushMatrix();
 	// Cofnięcie obiektów
@@ -228,19 +230,18 @@ void RenderScene(void)
 	// Rysowanie piramidy
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLES);
-	// Podstawa piramidy - dwa trójkąty
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glTexCoord2f(1.0f, 1.0f);
+	//Podstawa piramidy - dwa trójkąty
+	glTexCoord2f(.5f, .33f);
 	glVertex3fv(vCorners[2]);
-	glTexCoord2f(0.0f, 0.0f);
+	glTexCoord2f(0.0f, .5f);
 	glVertex3fv(vCorners[4]);
-	glTexCoord2f(0.0f, 1.0f);
+	glTexCoord2f(.5f, 1.0f);
 	glVertex3fv(vCorners[1]);
-	glTexCoord2f(1.0f, 1.0f);
+	glTexCoord2f(.5f, .33f);
 	glVertex3fv(vCorners[2]);
-	glTexCoord2f(1.0f, 0.0f);
+	glTexCoord2f(.5f, 1.0f);
 	glVertex3fv(vCorners[3]);
-	glTexCoord2f(0.0f, 0.0f);
+	glTexCoord2f(.66f, 0.0f);
 	glVertex3fv(vCorners[4]);
 	// Przednia strona
 	gltGetNormalVector(vCorners[0], vCorners[4], vCorners[3], vNormal);
@@ -252,14 +253,14 @@ void RenderScene(void)
 	glTexCoord2f(1.0f, 0.0f);
 	glVertex3fv(vCorners[3]);
 	// Lewa strona
-	gltGetNormalVector(vCorners[0], vCorners[1], vCorners[4], vNormal);
+	gltGetNormalVector(vCorners[0], vCorners[3], vCorners[2], vNormal);
 	glNormal3fv(vNormal);
 	glTexCoord2f(0.5f, 1.0f);
 	glVertex3fv(vCorners[0]);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3fv(vCorners[1]);
+	glVertex3fv(vCorners[3]);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3fv(vCorners[4]);
+	glVertex3fv(vCorners[2]);
 	// Tylna strona
 	gltGetNormalVector(vCorners[0], vCorners[2], vCorners[1], vNormal);
 	glNormal3fv(vNormal);
@@ -270,14 +271,22 @@ void RenderScene(void)
 	glTexCoord2f(1.0f, 0.0f);
 	glVertex3fv(vCorners[1]);
 	// Prawa strona
-	gltGetNormalVector(vCorners[0], vCorners[3], vCorners[2], vNormal);
+	gltGetNormalVector(vCorners[0], vCorners[1], vCorners[5], vNormal);
 	glNormal3fv(vNormal);
 	glTexCoord2f(0.5f, 1.0f);
 	glVertex3fv(vCorners[0]);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3fv(vCorners[3]);
+	glVertex3fv(vCorners[1]);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3fv(vCorners[2]);
+	glVertex3fv(vCorners[5]);
+	gltGetNormalVector(vCorners[0], vCorners[5], vCorners[4], vNormal);
+	glNormal3fv(vNormal);
+	glTexCoord2f(0.5f, 1.0f);
+	glVertex3fv(vCorners[0]);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3fv(vCorners[5]);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3fv(vCorners[4]);
 	glEnd();
 	// Odtworzenie stanu macierzy
 	glPopMatrix();
@@ -296,4 +305,4 @@ int main(int argc, char *argv[])
 	SetupRC();
 	glutMainLoop();
 	return 0;
-}
+}
