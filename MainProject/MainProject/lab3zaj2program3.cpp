@@ -231,18 +231,26 @@ void RenderScene(void)
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLES);
 	//Podstawa piramidy - dwa trójkąty
-	glTexCoord2f(.5f, .33f);
-	glVertex3fv(vCorners[2]);
-	glTexCoord2f(0.0f, .5f);
-	glVertex3fv(vCorners[4]);
-	glTexCoord2f(.5f, 1.0f);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(vCorners[1]);
-	glTexCoord2f(.5f, .33f);
+	glTexCoord2f(0.95f, 0.3f);
 	glVertex3fv(vCorners[2]);
-	glTexCoord2f(.5f, 1.0f);
+	glTexCoord2f(0.59f, -0.8f);
 	glVertex3fv(vCorners[3]);
-	glTexCoord2f(.66f, 0.0f);
+	//2
+	glTexCoord2f(0.59f, -0.8f);
+	glVertex3fv(vCorners[3]);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3fv(vCorners[1]);
+	glTexCoord2f(-0.59f, -0.8f);
 	glVertex3fv(vCorners[4]);
+	//3
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3fv(vCorners[1]);
+	glTexCoord2f(-0.59f, -0.8f);
+	glVertex3fv(vCorners[4]);
+	glTexCoord2f(-0.95f, 0.3f);
+	glVertex3fv(vCorners[5]);
 	// Przednia strona
 	gltGetNormalVector(vCorners[0], vCorners[4], vCorners[3], vNormal);
 	glNormal3fv(vNormal);
