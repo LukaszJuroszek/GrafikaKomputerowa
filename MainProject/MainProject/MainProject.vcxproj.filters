@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Lab1zaj1">
       <UniqueIdentifier>{c8b3b9f0-4f21-48d3-8c0b-39c28a77a9c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Lab4zaj4">
+      <UniqueIdentifier>{5fe207d3-d845-4e29-b915-22ac41f17445}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -68,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="lab3zaj2program3.cpp">
       <Filter>Source Files\Lab3zaj2</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab4zaj4program1.cpp">
+      <Filter>Source Files\Lab4zaj4</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab4zaj4program2.cpp">
+      <Filter>Source Files\Lab4zaj4</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
