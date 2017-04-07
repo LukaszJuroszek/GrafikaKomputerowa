@@ -212,13 +212,15 @@
 //// Wywoływana w celu przerysowania sceny
 //void RenderScene(void)
 //{
-//	GLTVector3 vNormal;
-//	GLTVector3 vCorners[6] = { { 0.0f, 1.0f, 0.0f }, // Góra 0
+////	GLTVector3 vNormal;
+//	GLTVector3 vCorners[6] = {
+//	{ 0.0f, 1.0f, 0.0f }, // Góra 0
 //	{ 0.0f, 0.0f, 1.0f }, // Lewy tył 1
-//	{0.95f, 0.0f, 0.3f}, // Prawy tył 2
+//	{ 0.95f, 0.0f, 0.3f}, // Prawy tył 2
 //	{ 0.59f, 0.0f, -0.8f }, // Prawy przód 3
 //	{ -0.59f, 0.0f,-0.8f },
-//	{ -0.95f, 0.0f, 0.3f }, }; // Lewy przód 4
+//	{ -0.95f, 0.0f, 0.3f }, };
+// Lewy przód 4
 //							 // Czyszczenie okna aktualnym kolorem
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	// Zapisanie stanu macierzy i wykonanie obrotów

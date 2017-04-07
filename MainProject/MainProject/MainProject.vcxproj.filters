@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Lab4zaj4">
       <UniqueIdentifier>{5fe207d3-d845-4e29-b915-22ac41f17445}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Lab5zaj5">
+      <UniqueIdentifier>{39bff3b5-9325-4650-bb0c-bf9887c27cf2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -57,9 +60,6 @@
     <ClCompile Include="..\..\..\..\..\Downloads\targa.cpp">
       <Filter>Source Files\Lab2zaj3</Filter>
     </ClCompile>
-    <ClCompile Include="Lab2program4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lab3zaj2.cpp">
       <Filter>Source Files\Lab3zaj2</Filter>
     </ClCompile>
@@ -77,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="Lab4zaj4program2.cpp">
       <Filter>Source Files\Lab4zaj4</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab2program4.cpp">
+      <Filter>Source Files\Lab2zaj3</Filter>
+    </ClCompile>
+    <ClCompile Include="lab5zaj5program1.cpp">
+      <Filter>Source Files\Lab5zaj5</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
