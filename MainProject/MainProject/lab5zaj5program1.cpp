@@ -25,7 +25,9 @@ enum
 				  // obszar renderingu
 				  FULL_WINDOW, // aspekt obrazu ‐ całe okno
 				  ASPECT_1_1, // aspekt obrazu 1:1
-				  EXIT // wyjście
+				  EXIT, // wyjście
+				  AMBIENT,
+	KIERUNKOWE
 };
 // aspekt obrazu
 int aspect = FULL_WINDOW;
@@ -59,10 +61,15 @@ const GLfloat *specular = BrassSpecular;
 GLfloat shininess = BrassShininess;
 // wyświetlany obiekt 3D
 int object = OBIEKT;
+int Swiatlo = KIERUNKOWE;
 // kierunek źródła światła
 GLfloat light_position[4] =
 {
 	0.0,0.0,2.0,0.0
+};
+GLfloat ambient_light[4] =
+{
+	0.2,0.2,0.2,1.0
 };
 // kąty obrotu kierunku źródła światła
 GLfloat light_rotatex = 0.0;
@@ -138,6 +145,7 @@ void DisplayScene()
 		break;
 		// czajnik
 	}
+
 	// informacje o modyfikowanych wartościach
 	// parametrów źródła światała GL_LIGHT0
 	char string[200];
@@ -153,6 +161,72 @@ void DisplayScene()
 	sprintf(string, "light_rotatey = %f", light_rotatey);
 	DrawString(2, 30, string);
 	// skierowanie poleceń do wykonania
+	glFlush();
+	// zamiana buforów koloru
+	glutSwapBuffers();
+}
+void Display()
+{
+	// kolor tła ‐ zawartośæ bufora koloru
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+	// czyszczenie bufora koloru i bufora głębokości
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// wybór macierzy modelowania
+	glMatrixMode(GL_MODELVIEW);
+	// macierz modelowania = macierz jednostkowa
+	glLoadIdentity();
+	// przesunięcie układu współrzędnych sześcianu do środka bryły odcinania
+	// obroty sześcianu
+	glRotatef(rotatex, 1.0, 0, 0);
+	glRotatef(rotatey, 0, 1.0, 0);
+	// niewielkie powiększenie sześcianu
+	glScalef(1.15, 1.15, 1.15);
+	// włączenie oświetlenia
+	glEnable(GL_LIGHTING);
+	// parametry globalnego światła otaczającego
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient_light);
+	// włączenie obsługi właściwości materiałów
+	glEnable(GL_COLOR_MATERIAL);
+	// właściwości materiału określone przez kolor wierzchołków
+	glColorMaterial(GL_FRONT, GL_AMBIENT);
+	// włączenie testu bufora głębokości
+	glEnable(GL_DEPTH_TEST);
+	// rysowanie sześcianu ‐ 12 trójkątów
+	switch (object)
+	{
+		// kula
+	case OBIEKT:
+		glBegin(GL_POLYGON);
+		glVertex3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(0.0f, 0.0f, 1.0f);
+		glVertex3f(0.95f, 0.0f, 0.3f);
+		glVertex3f(0.59f, 0.0f, -0.8f);
+		glVertex3f(-0.59f, 0.0f, -0.8f);
+		glVertex3f(-0.95f, 0.0f, 0.3f);
+		glVertex3f(0.0f, 0.0f, 1.0f);
+		glEnd();
+		break;
+		// czajnik
+	}
+
+	// wyłączenie oświetlenia
+	glDisable(GL_LIGHTING);
+	// wyłączenie obsługi właściwości materiałów
+	glDisable(GL_COLOR_MATERIAL);
+	// wyświetlenie składowych globalnego światła otaczającego
+	char string[100];
+	GLfloat rgba[4];
+	glColor3fv(Black);
+	// pobranie wartości składowych światła otaczającego
+	// (oczywiście wartości te odpowiadają tablicy ambient_light)
+	glGetFloatv(GL_LIGHT_MODEL_AMBIENT, rgba);
+	sprintf(string, "AMBIENT: R=%f G=%f B=%f A=%f", rgba[0], rgba[1], rgba[2], rgba[3]);
+	// trzeba odpowiednio przekształciæ układ współrzędnych
+	// aby napis znajdował się na samej "górze" bryły obcinania
+	glLoadIdentity();
+	// narysowanie napisu
+	DrawString(left, bottom, string);
+	// skierowanie poleceñ do wykonania
 	glFlush();
 	// zamiana buforów koloru
 	glutSwapBuffers();
@@ -181,7 +255,10 @@ void Reshape(int width, int height)
 	else
 		glFrustum(left, right, bottom, top, near, far);
 	// generowanie sceny 3D
+	if (Swiatlo==KIERUNKOWE)
 	DisplayScene();
+	else
+		Display();
 }
 // obsługa klawiatury
 void Keyboard(unsigned char key, int x, int y)
@@ -197,9 +274,24 @@ void Keyboard(unsigned char key, int x, int y)
 		if (scale > 0.05)
 			scale -= 0.05;
 		break;
+	case 'a':
+		if (Swiatlo == KIERUNKOWE)
+		{
+			Swiatlo = AMBIENT;
+		}
+		else
+		{
+			Swiatlo = KIERUNKOWE;
+		}
+		break;
 	}
 	// narysowanie sceny
-	DisplayScene();
+	if (Swiatlo == KIERUNKOWE)
+	{
+		DisplayScene();
+	}
+	else
+		Display();
 }
 // obsługa przycisków myszki
 void MouseButton(int button, int state, int x, int y)
@@ -251,7 +343,12 @@ void SpecialKeys(int key, int x, int y)
 		break;
 	}
 	// odrysowanie okna
-	DisplayScene();
+	if (Swiatlo == KIERUNKOWE)
+	{
+		DisplayScene();
+	}
+	else
+		Display();
 }
 // obsługa menu podręcznego
 void Menu(int value)
@@ -261,16 +358,46 @@ void Menu(int value)
 		// rysowany obiekt - kula
 	case OBIEKT:
 		object = OBIEKT;
-		DisplayScene();
+		if (Swiatlo == KIERUNKOWE)
+		{
+			DisplayScene();
+		}
+		else
+			Display();
 		break;
 		// rysowany obiekt - czajnik
+	case AMBIENT:
+		Swiatlo = AMBIENT;
+		if (Swiatlo == KIERUNKOWE)
+		{
+			DisplayScene();
+		}
+		else
+			Display();
+		break;
+	case KIERUNKOWE:
+		Swiatlo = KIERUNKOWE;
+		if (Swiatlo == KIERUNKOWE)
+		{
+			DisplayScene();
+		}
+		else
+			Display();
+		break;
+		// rysowany obiekt - czajnik
+		// materiał ‐ mosiądz
 		// materiał ‐ mosiądz
 	case BRASS:
 		ambient = BrassAmbient;
 		diffuse = BrassDiffuse;
 		specular = BrassSpecular;
 		shininess = BrassShininess;
-		DisplayScene();
+		if (Swiatlo == KIERUNKOWE)
+		{
+			DisplayScene();
+		}
+		else
+			Display();
 		break;
 		// materiał ‐ brąz
 		// obszar renderingu ‐ całe okno
@@ -339,7 +466,13 @@ int main(int argc, char *argv[])
 	glutCreateWindow("Swiatlo kierunkowe");
 #endif
 	// dołączenie funkcji generującej scenę 3D
-	glutDisplayFunc(DisplayScene);
+	if (Swiatlo == KIERUNKOWE)
+	{
+		glutDisplayFunc(DisplayScene);
+	}
+	else {
+		glutDisplayFunc(Display);
+	}
 	// dołączenie funkcji wywoływanej przy zmianie rozmiaru okna
 	glutReshapeFunc(Reshape);
 	// dołączenie funkcji obsługi klawiatury
@@ -355,6 +488,9 @@ int main(int argc, char *argv[])
 	// utworzenie podmenu ‐ obiekt
 	int MenuObject = glutCreateMenu(Menu);
 	glutAddMenuEntry("MojObiekt", OBIEKT);
+	int MenuSwiatlo = glutCreateMenu(Menu);
+	glutAddMenuEntry("KIERUNKOWE", KIERUNKOWE);
+	glutAddMenuEntry("AMBIENT", AMBIENT);
 	// utworzenie podmenu ‐ Materiał
 	int MenuMaterial = glutCreateMenu(Menu);
 	glutAddMenuEntry("Mosiądz", BRASS);
@@ -369,6 +505,7 @@ int main(int argc, char *argv[])
 	// menu główne
 	glutCreateMenu(Menu);
 	glutAddSubMenu("Obiekt", MenuObject);
+	glutAddSubMenu("Swiatlo", MenuSwiatlo);
 #ifdef WIN32
 	glutAddSubMenu("Materiał", MenuMaterial);
 #else
