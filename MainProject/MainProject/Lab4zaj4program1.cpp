@@ -497,4 +497,4 @@
 //	// wprowadzenie programu do obsługi pętli komunikatów
 //	glutMainLoop();
 //	return 0;
-//}
+//}

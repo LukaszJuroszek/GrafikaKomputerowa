@@ -147,8 +147,7 @@
 //	// rysowanie wybranego obiektu 3D
 //	switch (object)
 //	{
-//		// kula
-//	case OBIEKT:
+//		case OBIEKT:
 //		glBegin(GL_POLYGON);
 //		glVertex3f(0.0f, 1.0f, 0.0f);
 //		glVertex3f(0.0f, 0.0f, 1.0f);
@@ -159,9 +158,7 @@
 //		glVertex3f(0.0f, 0.0f, 1.0f);
 //		glEnd();
 //		break;
-//		// czajnik
 //	}
-//
 //	// informacje o modyfikowanych wartościach
 //	// parametrów źródła światała GL_LIGHT0
 //	char string[200];

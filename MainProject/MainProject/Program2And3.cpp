@@ -172,8 +172,8 @@
 //	delete helperX;
 //	delete helperY;
 //}
-////void main(int argc, char* argv[]) {
-////	//program2And3(argc, argv);
-////	program3HomeWork(argc, argv);
-////
-////}
+//void main(int argc, char* argv[]) {
+//	//program2And3(argc, argv);
+//	program3HomeWork(argc, argv);
+//
+//}

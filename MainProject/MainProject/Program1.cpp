@@ -49,6 +49,6 @@
 //	SetupRC();
 //	glutMainLoop();
 //}
-////void main(int argc, char* argv[]) {
-////	program1(argc, argv);
-////}
+//void main(int argc, char* argv[]) {
+//	program1(argc, argv);
+//}

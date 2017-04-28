@@ -1,8 +1,7 @@
 ﻿//#include <GL/glut.h>
 //#include <stdlib.h>
 //#include <stdio.h>
-//#include <GL/glext.h>
-//
+//#include "GLUT\glext.h"
 //// tekstura "tęcza" o szerokości 512 tekseli
 //
 //unsigned char spectrum_512[512 * 3] =

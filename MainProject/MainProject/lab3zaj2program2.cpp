@@ -4,199 +4,199 @@
 //#else
 //#include <GL/glut.h>
 //#endif
-//#define GL_PI 3.1415f
+//#define gl_pi 3.1415f
 //enum
 //{
-//	EXIT // wyjęcie
+//	exit // wyjęcie
 //};
-//// Wielkość obrotów
-//static GLfloat xRot = 0.0f;
-//static GLfloat yRot = 0.0f;
-//static GLboolean iCull, iDepth, iOutline;
-//// Funkcja wykonuje wszystkie konieczne inicjalizacje kontekstu renderowania
-//void SetupRC()
+//// wielkość obrotów
+//static GLfloat xrot = 0.0f;
+//static GLfloat yrot = 0.0f;
+//static GLboolean icull, idepth, ioutline;
+//// funkcja wykonuje wszystkie konieczne inicjalizacje kontekstu renderowania
+//void setuprc()
 //{
-//	// Czarne tło
+//	// czarne tło
 //	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//	// Kolor rysujący ‐ zielony
+//	// kolor rysujący ‐ zielony
 //	glColor3f(0.0f, 1.0f, 0.0f);
-//	// Model cieniowania kolorów ‐ płaski
+//	// model cieniowania kolorów ‐ płaski
 //	glShadeModel(GL_FLAT);
-//	// Wielokąty o nawinięciu zgodnym z ruchem wskazówek zegara traktowane są
-//	// jako skierowane do przodu. Takie ustawienie jest konieczne, ponieważ
+//	// wielokąty o nawinięciu zgodnym z ruchem wskazówek zegara traktowane są
+//	// jako skierowane do przodu. takie ustawienie jest konieczne, ponieważ
 //	// korzystamy z wachlarzy trójkątów.
 //	glFrontFace(GL_CW);
 //}
-//// Wywoływana w celu przerysowania sceny
-//void RenderScene(void)
+//// wywoływana w celu przerysowania sceny
+//void renderscene(void)
 //{
-//	GLfloat x, y, angle; // Przechowują wartości współrzędnych i kąta
-//	int iPivot = 1; // Do oznaczania zamiennych kolorów
-//					// Wyczyszczenie okna i bufora głębi
+//	GLfloat x, y, angle; // przechowują wartości współrzędnych i kąta
+//	int ipivot = 1; // do oznaczania zamiennych kolorów
+//					// wyczyszczenie okna i bufora głębi
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//	// Włączenie lub wyłączenie mechanizmu eliminowania ukrytych powierzchni
-//	if (iCull)
+//	// włączenie lub wyłączenie mechanizmu eliminowania ukrytych powierzchni
+//	if (icull)
 //		glEnable(GL_CULL_FACE);
 //	else
 //		glDisable(GL_CULL_FACE);
-//	// Włączenie lub wyłączenie mechanizmu sprawdzania głębi
-//	if (iDepth)
+//	// włączenie lub wyłączenie mechanizmu sprawdzania głębi
+//	if (idepth)
 //		glEnable(GL_DEPTH_TEST);
 //	else
 //		glDisable(GL_DEPTH_TEST);
-//	// Jeżeli ten znacznik będzie ustawiony, to wielokąty zwrócone
+//	// jeżeli ten znacznik będzie ustawiony, to wielokąty zwrócone
 //	// tyłem do widza będą rysowane tylko w postaci szkieletu
-//	if (iOutline)
+//	if (ioutline)
 //		glPolygonMode(GL_BACK, GL_LINE);
 //	else
 //		glPolygonMode(GL_BACK, GL_FILL);
-//	// Zapisanie stanu macierzy i wykonanie obrotu
+//	// zapisanie stanu macierzy i wykonanie obrotu
 //	glPushMatrix();
-//	glRotatef(xRot, 1.0f, 0.0f, 0.0f);
-//	glRotatef(yRot, 0.0f, 1.0f, 0.0f);
-//	// Rozpoczęcie rysowania wachlarza trójkątów
-//	glBegin(GL_TRIANGLE_FAN);
-//	// Czubek stoka jest wspólnym wierzchołkiem wszystkich trójkątów z wachlarza
-//	// wysuniętym do góry w osi z. W ten sposób zamiast koła powstanie stożek.
-//	glVertex3f(0.0f, 0.0f, 100.0f);
-//	// Wykonujemy obrót w około i oznaczamy w równych odstępach wierzchołki
+//	GLROTATEF(xrot, 1.0f, 0.0f, 0.0f);
+//	glrotatef(yrot, 0.0f, 1.0f, 0.0f);
+//	// rozpoczęcie rysowania wachlarza trójkątów
+//	glbegin(gl_triangle_fan);
+//	// czubek stoka jest wspólnym wierzchołkiem wszystkich trójkątów z wachlarza
+//	// wysuniętym do góry w osi z. w ten sposób zamiast koła powstanie stożek.
+//	glvertex3f(0.0f, 0.0f, 100.0f);
+//	// wykonujemy obrót w około i oznaczamy w równych odstępach wierzchołki
 //	// tworzące wachlarz trójkątów.
-//	for (angle = 0.0f; angle <= (2.0f*GL_PI); angle += (2.0*GL_PI / 5.0f))
+//	for (angle = 0.0f; angle <= (2.0f*gl_pi); angle += (2.0*gl_pi / 5.0f))
 //	{
-//		// Wyliczenie współrzędnych x i y kolejnego wierzchołka
+//		// wyliczenie współrzędnych x i y kolejnego wierzchołka
 //		x = 50.0f*sin(angle);
 //		y = 50.0f*cos(angle);
-//		// Wybieranie koloru ‐ zielony lub czerwony
-//		if ((iPivot % 2) == 0)
-//			glColor3f(0.0f, 1.0f, 0.0f);
+//		// wybieranie koloru ‐ zielony lub czerwony
+//		if ((ipivot % 2) == 0)
+//			glcolor3f(0.0f, 1.0f, 0.0f);
 //		else
-//			glColor3f(1.0f, 0.0f, 0.0f);
-//		// Inkrementacja zmiennej okrelającej rodzaj koloru
-//		iPivot++;
-//		// Definiowanie kolejnego wierzchołka w wachlarzu trójkątów
-//		glVertex2f(x, y);
+//			glcolor3f(1.0f, 0.0f, 0.0f);
+//		// inkrementacja zmiennej okrelającej rodzaj koloru
+//		ipivot++;
+//		// definiowanie kolejnego wierzchołka w wachlarzu trójkątów
+//		glvertex2f(x, y);
 //	}
-//	// Zakoczenie rysowania trójkątów stożka
-//	glEnd();
-//	// Rozpoczęcie rysowania kolejnego wachlarza trójkątów
+//	// zakoczenie rysowania trójkątów stożka
+//	glend();
+//	// rozpoczęcie rysowania kolejnego wachlarza trójkątów
 //	// zakrywającego podstaw stoka
-//	glBegin(GL_TRIANGLE_FAN);
+//	glbegin(gl_triangle_fan);
 //	// środek wachlarza znajduje się na początku układu współrzędnych
-//	glVertex2f(0.0f, 0.0f);
-//	for (angle = 0.0f; angle <= (2.0f*GL_PI); angle += (2.0*GL_PI / 5.0f))
+//	glvertex2f(0.0f, 0.0f);
+//	for (angle = 0.0f; angle <= (2.0f*gl_pi); angle += (2.0*gl_pi / 5.0f))
 //	{
-//		// Wyliczenie współrzędnych x i y kolejnego wierzchołka
+//		// wyliczenie współrzędnych x i y kolejnego wierzchołka
 //		x = 50.0f*sin(angle);
 //		y = 50.0f*cos(angle);
-//		// Wybieranie koloru ‐ zielony lub czerwony
-//		if ((iPivot % 2) == 0)
-//			glColor3f(0.0f, 1.0f, 0.0f);
+//		// wybieranie koloru ‐ zielony lub czerwony
+//		if ((ipivot % 2) == 0)
+//			glcolor3f(0.0f, 1.0f, 0.0f);
 //		else
-//			glColor3f(1.0f, 0.0f, 0.0f);
-//		// Inkrementacja zmiennej okrelającej rodzaj koloru
-//		iPivot++;
-//		// Definiowanie kolejnego wierzchołka w wachlarzu trójkątów
-//		glVertex2f(x, y);
+//			glcolor3f(1.0f, 0.0f, 0.0f);
+//		// inkrementacja zmiennej okrelającej rodzaj koloru
+//		ipivot++;
+//		// definiowanie kolejnego wierzchołka w wachlarzu trójkątów
+//		glvertex2f(x, y);
 //	}
-//	// Zakoczenie rysowania trójkątów podstawy stoka
-//	glEnd();
-//	// Odtworzenie macierzy przekształceń
-//	glPopMatrix();
-//	// Wysłanie poleceń do wykonania
-//	glutSwapBuffers();
+//	// zakoczenie rysowania trójkątów podstawy stoka
+//	glend();
+//	// odtworzenie macierzy przekształceń
+//	glpopmatrix();
+//	// wysłanie poleceń do wykonania
+//	glutswapbuffers();
 //}
-//void SpecialKeys(int key, int x, int y)
+//void specialkeys(int key, int x, int y)
 //{
-//	if (key == GLUT_KEY_UP)
-//		xRot -= 5.0f;
-//	if (key == GLUT_KEY_DOWN)
-//		xRot += 5.0f;
-//	if (key == GLUT_KEY_LEFT)
-//		yRot = 5.0f;
-//	if (key == GLUT_KEY_RIGHT)
-//		yRot += 5.0f;
+//	if (key == glut_key_up)
+//		xrot -= 5.0f;
+//	if (key == glut_key_down)
+//		xrot += 5.0f;
+//	if (key == glut_key_left)
+//		yrot = 5.0f;
+//	if (key == glut_key_right)
+//		yrot += 5.0f;
 //	if (key > 356.0f)
-//		xRot = 0.0f;
+//		xrot = 0.0f;
 //	if (key < -1.0f)
-//		xRot = 355.0f;
+//		xrot = 355.0f;
 //	if (key > 356.0f)
-//		yRot = 0.0f;
+//		yrot = 0.0f;
 //	if (key < -1.0f)
-//		yRot = 355.0f;
-//	// Odświeżenie zawartości okna
-//	glutPostRedisplay();
+//		yrot = 355.0f;
+//	// odświeżenie zawartości okna
+//	glutpostredisplay();
 //}
-//void ChangeSize(int w, int h)
+//void changesize(int w, int h)
 //{
-//	GLfloat nRange = 100.0f;
-//	// Zabezpieczenie przed dzieleniem przez zero
+//	GLfloat nrange = 100.0f;
+//	// zabezpieczenie przed dzieleniem przez zero
 //	if (h == 0)
 //		h = 1;
-//	// Ustalenie wymiarów widoku na zgodnych z wymiarami okna
-//	glViewport(0, 0, w, h);
-//	// Ponowne ustawienie stosu macierzy rzutowania
-//	glMatrixMode(GL_PROJECTION);
-//	glLoadIdentity();
-//	// Utworzenie przestrzeni ograniczającej (lewo, prawo, dół, góra, blisko, daleko)
+//	// ustalenie wymiarów widoku na zgodnych z wymiarami okna
+//	glviewport(0, 0, w, h);
+//	// ponowne ustawienie stosu macierzy rzutowania
+//	glmatrixmode(gl_projection);
+//	glloadidentity();
+//	// utworzenie przestrzeni ograniczającej (lewo, prawo, dół, góra, blisko, daleko)
 //	if (w <= h)
-//		glOrtho(-nRange, nRange, -nRange*h / w, nRange*h / w, -nRange, nRange);
+//		glortho(-nrange, nrange, -nrange*h / w, nrange*h / w, -nrange, nrange);
 //	else
-//		glOrtho(-nRange*w / h, nRange*w / h, -nRange, nRange, -nRange, nRange);
-//	// Ponowne ustawienie stosu macierzy rzutowania
-//	glMatrixMode(GL_MODELVIEW);
-//	glLoadIdentity();
+//		glortho(-nrange*w / h, nrange*w / h, -nrange, nrange, -nrange, nrange);
+//	// ponowne ustawienie stosu macierzy rzutowania
+//	glmatrixmode(gl_modelview);
+//	glloadidentity();
 //}
-//void Menu(int value)
+//void menu(int value)
 //{
 //	switch (value)
 //	{
 //		//
-//	case GL_CULL_FACE:
-//		iCull = !iCull;
-//		glutSetWindowTitle("Stozek ‐ GL_CULL_FACE");
-//		RenderScene();
+//	case gl_cull_face:
+//		icull = !icull;
+//		glutsetwindowtitle("stozek ‐ gl_cull_face");
+//		renderscene();
 //		break;
 //		//
-//	case GL_DEPTH_TEST:
-//		iDepth = !iDepth;
-//		glutSetWindowTitle("Stozek ‐ GL_DEPTH_TEST");
-//		RenderScene();
+//	case gl_depth_test:
+//		idepth = !idepth;
+//		glutsetwindowtitle("stozek ‐ gl_depth_test");
+//		renderscene();
 //		break;
 //		//
-//	case GL_LINE:
-//		iOutline = true;
-//		glutSetWindowTitle("Stozek ‐ GL_LINE");
-//		RenderScene();
+//	case gl_line:
+//		ioutline = true;
+//		glutsetwindowtitle("stozek ‐ gl_line");
+//		renderscene();
 //		break;
 //		//
-//	case GL_FILL:
-//		iOutline = false;
-//		glutSetWindowTitle("Stozek ‐ GL_LINE");
-//		RenderScene();
+//	case gl_fill:
+//		ioutline = false;
+//		glutsetwindowtitle("stozek ‐ gl_line");
+//		renderscene();
 //		break;
 //		// wyjęcie
-//	case EXIT:
+//	case exit:
 //		exit(0);
 //	}
 //}
 //int main(int argc, char* argv[])
 //{
-//	glutInit(&argc, argv);
-//	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-//	glutCreateWindow("Triangles Constructing Fan Example");
-//	glutReshapeFunc(ChangeSize);
-//	glutSpecialFunc(SpecialKeys);
-//	glutDisplayFunc(RenderScene);
-//	SetupRC();
-//	// utworzenie podmenu ‐ Prymitywy
-//	int MenuPrimitive = glutCreateMenu(Menu);
-//	glutAddMenuEntry("GL_CULL_FACE", GL_CULL_FACE);
-//	glutAddMenuEntry("GL_DEPTH_TEST", GL_DEPTH_TEST);
-//	glutAddMenuEntry("Polygon mode LINE", GL_LINE);
-//	glutAddMenuEntry("Polygon mode FILL", GL_FILL);
-//	glutAddMenuEntry("Wyjecie", EXIT);
+//	glutinit(&argc, argv);
+//	glutinitdisplaymode(glut_double | glut_rgb | glut_depth);
+//	glutcreatewindow("triangles constructing fan example");
+//	glutreshapefunc(changesize);
+//	glutspecialfunc(specialkeys);
+//	glutdisplayfunc(renderscene);
+//	setuprc();
+//	// utworzenie podmenu ‐ prymitywy
+//	int menuprimitive = glutcreatemenu(menu);
+//	glutaddmenuentry("gl_cull_face", gl_cull_face);
+//	glutaddmenuentry("gl_depth_test", gl_depth_test);
+//	glutaddmenuentry("polygon mode line", gl_line);
+//	glutaddmenuentry("polygon mode fill", gl_fill);
+//	glutaddmenuentry("wyjecie", exit);
 //	// określenie przycisku myszki obsługującego menu podręczne
-//	glutAttachMenu(GLUT_RIGHT_BUTTON);
-//	glutMainLoop();
+//	glutattachmenu(glut_right_button);
+//	glutmainloop();
 //	return 0;
 //}

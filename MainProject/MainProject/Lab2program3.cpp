@@ -1,5 +1,5 @@
 ﻿//#include <GL/glut.h>
-//#include <GL/glext.h>
+//#include"GLUT\glext.h"
 //#ifndef WIN32
 //#define GLX_GLXEXT_LEGACY
 //#include <GL/glx.h>
@@ -7,8 +7,8 @@
 //#endif
 //#include <stdlib.h>
 //#include <stdio.h>
-//#include "GL\colors.h"
-//#include "GL\targa.h"
+//#include "GLUt\colors.h"
+//#include "GLUT\targa.h"
 //#include <GLFW/glfw3.h>
 //// wskaŸnik na funkcję glWindowPos2i
 //PFNGLWINDOWPOS2IPROC glWindowPos2i = NULL;

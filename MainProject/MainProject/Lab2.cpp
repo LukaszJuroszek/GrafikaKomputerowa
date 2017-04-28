@@ -3,11 +3,11 @@
 //http://www.januszg.hg.pl
 //JanuszG@enter.net.pl
 //*/
-//
+//#define _CRT_NONSTDC_NO_WARNINGS
 //#include <GL/glut.h>
 //#include <stdlib.h>
 //#include <stdio.h>
-//#include "GL\glext.h"
+//#include "GLUT\glext.h"
 //#include <cmath>
 //
 //// stałe do obsługi menu podręcznego
@@ -318,7 +318,7 @@
 //
 //	// odczyt wersji OpenGL
 //	int major = 0, minor = 0;
-//	if (sscanf_s_s(version, "%d.%d", &major, &minor) != 2)
+//	if (sscanf_s(version, "%d.%d", &major, &minor) != 2)
 //	{
 //#ifdef WIN32
 //		printf("Błędny format wersji OpenGL\n");
