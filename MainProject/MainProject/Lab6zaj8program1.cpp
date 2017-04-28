@@ -351,6 +351,7 @@ void DisplayScene()
 	}
 	if (csg_op == CSG_OSTROSLUP_SUB_Kula_OR_TORUS_AND_KULA)
 	{
+		glEnable(GL_DEPTH_TEST);
 
 		Inside(C, A, GL_FRONT, GL_NOTEQUAL);
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -369,6 +370,7 @@ void DisplayScene()
 		glCallList(B);
 		glDepthFunc(GL_LESS);
 		Inside(B, A, GL_BACK, GL_NOTEQUAL);
+		glDisable(GL_DEPTH_TEST);
 	}
 	// skierowanie poleceń do wykonania
 	glFlush();
