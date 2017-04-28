@@ -1,4 +1,7 @@
 ﻿//ostrosłup z poprzednich zadań w podstawie dziura w środku kula 
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include <iostream>
 #include <GL/glut.h>
 #include <stdlib.h>
 #include "Glut/colors.h"
@@ -30,6 +33,89 @@ int button_state = GLUT_UP;
 // położenie kursora myszki
 int button_x, button_y;
 // funkcja generująca scenę 3D
+void CrateObject(int numberOfSides, double radius, int x, int y, const  GLfloat*color)
+{
+	//góra
+	glBegin(GL_POLYGON);
+	//wysokość stożka
+	glVertex3f(.0f, 1.0f, .0f);
+	glColor3fv(color);
+	for (int i = 0; i < numberOfSides; i++)
+	{
+		float xx = x + radius * sin(2.0*M_PI*i / numberOfSides);
+		float yy = y + radius * cos(2.0*M_PI*i / numberOfSides);
+		glVertex3f(xx, .0f, yy);
+		glColor3fv(color);
+	}
+	//namalowanie pierwszego wieszkołka do do zamknięcia figury
+	glVertex3f(x + radius * sin(0), .0f, y + radius * cos(0));
+	glColor3fv(color);
+	glEnd();
+	//malowanie podstawy
+	glBegin(GL_POLYGON);
+	for (int i = 0; i < numberOfSides + 1; i++)
+	{
+		float xx = x + radius * sin(2.0*M_PI*i / numberOfSides);
+		float yy = y + radius * cos(2.0*M_PI*i / numberOfSides);
+		glVertex3f(xx, .0f, yy);
+		glColor3fv(color);
+	}
+	glEnd();
+}
+void CrateObjectEmptyBottom(int numberOfSides, double radius, int x, int y, const  GLfloat*color)
+{
+	//góra
+	glBegin(GL_POLYGON);
+	//wysokość stożka
+	glVertex3f(.0f, 1.0f, .0f);
+	glColor3fv(color);
+	for (int i = 0; i < numberOfSides; i++)
+	{
+		float xx = x + radius * sin(2.0*M_PI*i / numberOfSides);
+		float yy = y + radius * cos(2.0*M_PI*i / numberOfSides);
+		glVertex3f(xx, .0f, yy);
+		glColor3fv(color);
+	}
+	//namalowanie pierwszego wieszkołka do do zamknięcia figury
+	glVertex3f(x + radius * sin(0), .0f, y + radius * cos(0));
+	glColor3fv(color);
+	glEnd();
+}
+void CreateBottomWithRectangleInPentagon(const  GLfloat*color)
+{
+	//malowanie podstawy
+	glBegin(GL_POLYGON);
+	//glVertex3f(xx, .0f, yy);
+	//first top part of figure
+	glVertex3f(.0f, .0f, 1.0f);
+	glVertex3f(-.95f, .0f, .3f);
+	glVertex3f(-.5f, .0f, .5f);
+	glVertex3f(.5f, .0f, .5f);
+	glVertex3f(.95f, .0f, .3f);
+	glEnd();
+	glBegin(GL_POLYGON);
+	//second top part of figure
+	glVertex3f(.95f, .0f, .3f);
+	glVertex3f(.5f, .0f, .5f);
+	glVertex3f(.5f, .0f, -.5f);
+	glVertex3f(.58f, .0f, -.8f);
+	glEnd();
+	glBegin(GL_POLYGON);
+	//third top part of figure
+	glVertex3f(.5f, .0f, -.5f);
+	glVertex3f(.58f, .0f, -.8f);
+	glVertex3f(-.58f, .0f, -.8f);
+	glVertex3f(-.5f, .0f, -.5f);
+	glEnd();
+	glBegin(GL_POLYGON);
+	//fourthtop part of figure
+	glVertex3f(-.5f, .0f, -.5f);
+	glVertex3f(-.5f, .0f, .5f);
+	glVertex3f(-.95f, .0f, .3f);
+	glVertex3f(-.58f, .0f, -.8f);
+	glColor3fv(color);
+	glEnd();
+}
 void Display()
 {
 	// kolor tła - zawartość bufora koloru
@@ -71,109 +157,25 @@ void Display()
 	// no i nie jest rysowana ściana przednia, w której będzie otwór
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
-	glBegin(GL_POLYGON);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glColor3fv(Red);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glColor3fv(Blue);
-	glVertex3f(0.95f, 0.0f, 0.3f);
-	glColor3fv(Green);
-	glVertex3f(0.59f, 0.0f, -0.8f);
-	glColor3fv(Yellow);
-	glVertex3f(-0.59f, 0.0f, -0.8f);
-	glColor3fv(Magenta);
-	glVertex3f(-0.95f, 0.0f, 0.3f);
-	glColor3fv(Cyan);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glColor3fv(CadetBlue);
-	glEnd();
+		if (polygon_offset)
+	CrateObjectEmptyBottom(5, 0.999, 0, 0, Blue);
 	glDisable(GL_CULL_FACE);
 	// rysowanie płaszczyzny otworu w sześcianie
 	if (cutting_plane)
 	{
 		// wyłączenie rysowania w buforze kolorów
+		CreateBottomWithRectangleInPentagon(Red);
 		glDrawBuffer(GL_NONE);
 		// rysowanie kwadratu częściowo odsłaniającego wnętrze sześcianu
 		// (kwadrat jest położony o 0,001 jednostki nad bokiem sześcianu)
-		glBegin(GL_POLYGON);
-		glScalef(1.0, 1.0, 1.0);
-		glVertex3f(0.0f, 1.0f, 0.0f);
-		glColor3fv(Pink);
-		glVertex3f(0.0f, 0.0f, 1.0f);
-		glColor3fv(Pink);
-		glVertex3f(0.95f, 0.0f, 0.3f);
-		glColor3fv(Pink);
-		glVertex3f(0.59f, 0.0f, -0.8f);
-		glColor3fv(Pink);
-		glVertex3f(-0.59f, 0.0f, -0.8f);
-		glColor3fv(Pink);
-		glVertex3f(-0.95f, 0.0f, 0.3f);
-		glColor3fv(Pink);
-		glVertex3f(0.0f, 0.0f, 1.0f);
-		glColor3fv(Pink);
-		glEnd();
-		glBegin(GL_POLYGON);
-		glVertex3f(0.0f,1.00, 0.0f);
-		glColor3fv(Pink);
-		glVertex3f(0.0f, 0.0, 1.0f);
-		glColor3fv(Pink);
-		glVertex3f(0.95f, 0.0, 0.3f);
-		glColor3fv(Pink);
-		glVertex3f(0.59, 0.0, -0.8f);
-		glColor3fv(Pink);
-		glVertex3f(-0.59, 0.0, -0.8f);
-		glColor3fv(Pink);
-		glVertex3f(-0.95, 0.0, 0.3f);
-		glColor3fv(Pink);
-		glVertex3f(0.0,0.0, 1.0f);
-		glColor3fv(Pink);
-		glEnd();
-
-		// włączenie rysowania w buforze kolorów
+				// włączenie rysowania w buforze kolorów
 		glDrawBuffer(GL_BACK);
+		CrateObjectEmptyBottom(5, 1.0, 0, 0, Red);
 	}
-	// właściwy sześcian z obramowaniem, którego rysowanie wymusza brak oświetlenia
-	if (polygon_offset)
-		glEnable(GL_POLYGON_OFFSET_FILL);
-	glBegin(GL_POLYGON);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glColor3fv(Pink);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glColor3fv(Pink);
-	glVertex3f(0.95f, 0.0f, 0.3f);
-	glColor3fv(Pink);
-	glVertex3f(0.59f, 0.0f, -0.8f);
-	glColor3fv(Pink);
-	glVertex3f(-0.59f, 0.0f, -0.8f);
-	glColor3fv(Pink);
-	glVertex3f(-0.95f, 0.0f, 0.3f);
-	glColor3fv(Pink);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glColor3fv(Pink);
-	glEnd();
-	/*glBegin(GL_POLYGON);
-	glVertex3f(0.0f, .0, 0.0f);
-	glColor3fv(Pink);
-	glVertex3f(0.0f, .0, 1.0f);
-	glColor3fv(Pink);
-	glVertex3f(0.95f, .0, 0.3f);
-	glColor3fv(Pink);
-	glVertex3f(0.59, .0, -0.8f);
-	glColor3fv(Pink);
-	glVertex3f(-0.59, .0, -0.8f);
-	glColor3fv(Pink);
-	glVertex3f(-0.95, .0, 0.3f);
-	glColor3fv(Pink);
-	glVertex3f(0.0, .0, 1.0f);
-	glColor3fv(Pink);
-	glEnd();*/
-	//glPolygonOffset(1.0, 1.0);
-	//glutSolidCube(2.0);
-	//glColor3fv(Black);
-	//glutWireCube(2.0);
-	if (polygon_offset)
-		glDisable(GL_POLYGON_OFFSET_FILL);
-
+	else
+	{
+	CrateObject(5, 1.0, 0, 0, Green);
+	}
 	// skierowanie poleceń do wykonania
 	glFlush();
 	// zamiana buforów koloru
