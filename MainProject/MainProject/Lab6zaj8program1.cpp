@@ -7,14 +7,15 @@
 // stałe do obsługi menu podręcznego
 enum
 {
-	CSG_A, // tylko obiekt Torus
-	CSG_B, // tylko obiekt Kula
+	CSG_A, // tylko obiekt Kula
+	CSG_B, // tylko obiekt Torus
 	CSG_C, // tylko obiekt Ostrosłup
 	CSG_A_OR_B,
 	CSG_A_OR_C,
 	CSG_A_AND_B,
 	CSG_A_SUB_B,
 	CSG_B_SUB_A,
+	CSG_C_SUB_A,
 	CSG_OSTROSLUP_SUB_Kula_OR_TORUS_AND_KULA, //zadanie
 	FULL_WINDOW, // aspekt obrazu - całe okno
 	ASPECT_1_1, // aspekt obrazu 1:1
@@ -59,12 +60,13 @@ int csg_op = CSG_A_OR_B;
 // te elementy obiektu A, które znajdują się we wnętrzu obiektu B;
 // stronę (przednią lub tylną) wyszukiwanych elementów obiektu A
 // określa parametr cull_face
-void CrateObject(int numberOfSides, double radius, int x, int y, const  GLfloat*color)
+void CrateObject(int numberOfSides, double radius, float heigth, float x, float y, const  GLfloat*color)
 {
 	//góra
+	glTranslatef(x, y, 0);
 	glBegin(GL_POLYGON);
 	//wysokość stożka
-	glVertex3f(.0f, 1.0f, .0f);
+	glVertex3f(.0f, heigth, .0f);
 	glColor3fv(color);
 	for (int i = 0; i < numberOfSides; i++)
 	{
@@ -257,89 +259,116 @@ void DisplayScene()
 		// wyłączenie testu bufora głębokości
 		glDisable(GL_DEPTH_TEST);
 	}
+	if (csg_op == CSG_A_OR_C)
+	{
+		// włączenie testu bufora głębokości
+		glEnable(GL_DEPTH_TEST);
+		// wyświetlenie obiektu A i B
+		glCallList(A);
+		glCallList(C);
 
+		// wyłączenie testu bufora głębokości
+		glDisable(GL_DEPTH_TEST);
+	}
 	// operacja CSG A AND B
 	if (csg_op == CSG_A_AND_B)
 	{
 		// elementy obiektu A znajdujące się we wnętrzu B
 		Inside(A, B, GL_BACK, GL_NOTEQUAL);
-
 		// wyłączenie zapisu składowych RGBA do bufora kolorów
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-
 		// włączenie testu bufora głębokości
 		glEnable(GL_DEPTH_TEST);
-
 		// wyłączenie bufora szablonowego
 		glDisable(GL_STENCIL_TEST);
-
 		// wybór funkcji do testu bufora głębokości
 		glDepthFunc(GL_ALWAYS);
-
 		// wyświetlenie obiektu B
 		glCallList(B);
-
 		// wybór funkcji do testu bufora głębokości
 		glDepthFunc(GL_LESS);
-
 		// elementy obiektu B znajdujące się we wnętrzu A
 		Inside(B, A, GL_BACK, GL_NOTEQUAL);
 	}
-
 	// operacja CSG A SUB B
 	if (csg_op == CSG_A_SUB_B)
 	{
 		// elementy obiektu A znajdujące się we wnętrzu B
 		Inside(A, B, GL_FRONT, GL_NOTEQUAL);
-
 		// wyłączenie zapisu składowych RGBA do bufora kolorów
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-
 		// włączenie testu bufora głębokości
 		glEnable(GL_DEPTH_TEST);
-
 		// wyłączenie bufora szablonowego
 		glDisable(GL_STENCIL_TEST);
-
 		// wybór funkcji do testu bufora głębokości
 		glDepthFunc(GL_ALWAYS);
-
 		// wyświetlenie obiektu B
 		glCallList(B);
-
 		// wybór funkcji do testu bufora głębokości
 		glDepthFunc(GL_LESS);
-
 		// elementy obiektu B znajdujące się we wnętrzu A
 		Inside(B, A, GL_BACK, GL_EQUAL);
 	}
-
 	// operacja CSG B SUB A
 	if (csg_op == CSG_B_SUB_A)
 	{
 		// elementy obiektu B znajdujące się we wnętrzu A
 		Inside(B, A, GL_FRONT, GL_NOTEQUAL);
-
 		// wyłączenie zapisu składowych RGBA do bufora kolorów
 		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-
 		// włączenie testu bufora głębokości
 		glEnable(GL_DEPTH_TEST);
-
 		// wyłączenie bufora szablonowego
 		glDisable(GL_STENCIL_TEST);
-
 		// wybór funkcji do testu bufora głębokości
 		glDepthFunc(GL_ALWAYS);
-
 		// wyświetlenie obiektu A
 		glCallList(A);
-
 		// wybór funkcji do testu bufora głębokości
 		glDepthFunc(GL_LESS);
-
 		// elementy obiektu A znajdujące się we wnętrzu B
 		Inside(A, B, GL_BACK, GL_EQUAL);
+	}
+	if (csg_op == CSG_C_SUB_A)
+	{
+		// elementy obiektu B znajdujące się we wnętrzu A
+		Inside(C, A, GL_FRONT, GL_NOTEQUAL);
+		// wyłączenie zapisu składowych RGBA do bufora kolorów
+		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		// włączenie testu bufora głębokości
+		glEnable(GL_DEPTH_TEST);
+		// wyłączenie bufora szablonowego
+		glDisable(GL_STENCIL_TEST);
+		// wybór funkcji do testu bufora głębokości
+		glDepthFunc(GL_ALWAYS);
+		// wyświetlenie obiektu A
+		glCallList(A);
+		// wybór funkcji do testu bufora głębokości
+		glDepthFunc(GL_LESS);
+		// elementy obiektu A znajdujące się we wnętrzu B
+		Inside(A, C, GL_BACK, GL_EQUAL);
+	}
+	if (csg_op == CSG_OSTROSLUP_SUB_Kula_OR_TORUS_AND_KULA)
+	{
+
+		Inside(C, A, GL_FRONT, GL_NOTEQUAL);
+		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_STENCIL_TEST);
+		glDepthFunc(GL_ALWAYS);
+		glCallList(A);
+		glDepthFunc(GL_LESS);
+		Inside(A, C, GL_BACK, GL_EQUAL);
+
+		Inside(A, B, GL_BACK, GL_NOTEQUAL);
+		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_STENCIL_TEST);
+		glDepthFunc(GL_ALWAYS);
+		glCallList(B);
+		glDepthFunc(GL_LESS);
+		Inside(B, A, GL_BACK, GL_NOTEQUAL);
 	}
 	// skierowanie poleceń do wykonania
 	glFlush();
@@ -421,6 +450,7 @@ void Menu(int value)
 	case CSG_A_AND_B:
 	case CSG_A_SUB_B:
 	case CSG_B_SUB_A:
+	case CSG_C_SUB_A:
 	case CSG_OSTROSLUP_SUB_Kula_OR_TORUS_AND_KULA:
 		csg_op = value;
 		DisplayScene();
@@ -456,7 +486,7 @@ void GenerateDisplayLists()
 
 	// czerwony sześcian
 	glColor4fv(Red);
-	glutSolidCube(2.3);
+	glutSolidSphere(1, 100, 100);
 
 	// koniec pierwszej listy wyświetlania
 	glEndList();
@@ -469,7 +499,7 @@ void GenerateDisplayLists()
 
 	// zielona kula
 	glColor4fv(Green);
-	glutSolidSphere(1.5, 30, 30);
+	glutSolidTorus(.2, 1, 100, 100);
 
 	glEndList();
 	// generowanie identyfikatora trzeciej listy wyświetlania
@@ -478,7 +508,7 @@ void GenerateDisplayLists()
 	// druga lista wyświetlania
 	glNewList(C, GL_COMPILE);
 	glColor4fv(Brown);
-	CrateObject(5, 1, 0, 0, Brown);
+	CrateObject(5, 2, 2, 0, 0, Brown);
 	// koniec drugiej listy wyświetlania
 	glEndList();
 }
@@ -516,9 +546,11 @@ int main(int argc, char * argv[])
 	glutAddMenuEntry("C", CSG_C);
 	glutAddMenuEntry("A OR B", CSG_A_OR_B);
 	glutAddMenuEntry("A OR c", CSG_A_OR_C);
+	glutAddMenuEntry("CSG_C_SUB_A", CSG_C_SUB_A);
 	glutAddMenuEntry("A AND B", CSG_A_AND_B);
 	glutAddMenuEntry("A SUB B", CSG_A_SUB_B);
 	glutAddMenuEntry("B SUB A", CSG_B_SUB_A);
+	glutAddMenuEntry("Zadanie", CSG_OSTROSLUP_SUB_Kula_OR_TORUS_AND_KULA);
 
 	// utworzenie podmenu - Aspekt obrazu
 	int MenuAspect = glutCreateMenu(Menu);
