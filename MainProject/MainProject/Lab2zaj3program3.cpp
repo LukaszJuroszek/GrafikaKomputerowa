@@ -1,4 +1,5 @@
-﻿//#include <GL/glut.h>
+﻿//od zera 
+//#include <GL/glut.h>
 //#include"GLUT\glext.h"
 //#ifndef WIN32
 //#define GLX_GLXEXT_LEGACY

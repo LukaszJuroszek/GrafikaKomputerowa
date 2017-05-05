@@ -1,5 +1,5 @@
 ﻿//#include <GL/glut.h>
-//#include <GL/glext.h>
+//#include <GLUT/glext.h>
 //#ifndef WIN32
 //#define GLX_GLXEXT_LEGACY
 //#include <GL/glx.h>

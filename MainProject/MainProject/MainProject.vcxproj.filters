@@ -37,14 +37,14 @@
     <Filter Include="Source Files\lab6zaj8">
       <UniqueIdentifier>{fccfb4da-c25a-4b43-b0c2-e42b88cb8313}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Lab7zaj9">
+      <UniqueIdentifier>{136df267-6387-4350-832b-491b31e430dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Downloads\targa.cpp">
-      <Filter>Source Files\Lab2zaj3</Filter>
-    </ClCompile>
     <ClCompile Include="lab3zaj2.cpp">
       <Filter>Source Files\Lab3zaj2</Filter>
     </ClCompile>
@@ -101,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="Lab6zaj7program2.cpp">
       <Filter>Source Files\Lab6zaj7</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab7zaj9program1.cpp">
+      <Filter>Source Files\Lab7zaj9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\packages\nupengl.core.0.1.0.1\build\native\include\GLUT\targa.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
