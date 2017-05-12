@@ -105,77 +105,62 @@ int display_mode = GLU_FILL;
 
 // wspó³rzêdne punktów kontrolnych powierzchni
 
-GLfloat points[4 * 4 * 3] =
+GLfloat points[5 * 5 * 3] =
 {
 	//ryosowanie jest od lewej do prawej
+	-1.0,	-1.0,	0.0,
 	-1.0,	-0.5,	0.0,
 	-1.0,	0.0,	0.0,
 	-1.0,	0.5,	0.0,
 	-1.0,	1.0,	0.0,
-	
-	-0.5,	-0.5,	0.0,
-	-0.5,	0.0,	0.0,
-	-0.5,	0.5,	0.0,
-	-0.5,	1.0,	0.0,
 
-	0.5,	-0.5,	.0,
-	0.5,	0.0,	2.0,
-	0.5,	0.5,	2.0,
-	0.5,	1.0,	.0,
+	-0.5,	-1.0,	1.0,
+	-0.5,	-0.5,	2.0,
+	-0.5,	0.0,	2.0,
+	-0.5,	0.5,	2.0,
+	-0.5,	1.0,	1.0,
 
-	1.5,	-0.5,	0.0,
-	1.5,	0.0,	0.0,
-	1.5,	0.5,	0.0,
-	1.5,	1.0,	0.0
+	0.0,	-1.0,	1.0,
+	0.0,	-0.5,	2.0,
+	0.0,	0.0,	2.0,
+	0.0,	0.5,	2.0,
+	0.0,	1.0,	1.0,
+
+	0.5,	-1.0,	0.0,
+	0.5,	-0.5,	0.0,
+	0.5,	0.0,	0.0,
+	0.5,	0.5,	0.0,
+	0.5,	1.0,	0.0,
+
+	1.0,	-1.0,	0.0,
+	1.0,	-0.5,	0.0,
+	1.0,	0.0,	0.0,
+	1.0,	0.5,	0.0,
+	1.0,	1.0,	0.0,
 
 };
-
 // wêz³y
 
-GLfloat knots[4 * 2] =
+GLfloat knots[11] =
 {
-	1.0 , 1.0,
-	1.0 , 1.0,
-	1.5 , 1.5,
-	1.5 , 1.5
+	0,0,0,0,0,
+	1,1,1,1,1,1
 };
-
-// wspó³rzêdne zewnêtrznej krzywej PWL
-
-GLfloat outline_pwl[10] =
-{
-	0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0
-};
-
-// wspó³rzêdne krzywej PWL opisuj¹cej wycinany fragment powierzchni
-
-GLfloat hole_pwl[10] =
-{
-	0.25, 0.25, 0.25, 0.75, 0.75, 0.75, 0.75, 0.25, 0.25, 0.25
-};
-
+int i =5*3;
 // znacznik dostêpnoœci biblioteki GLU w wersji 1.3
-
 bool GLU_1_3 = false;
-
 // definicje metod podzia³u powierzchni NURBS na
 // wielok¹ty wprowadzone w wersji 1.3 biblioteki GLU
-
 #ifndef  GLU_OBJECT_PARAMETRIC_ERROR
 #define GLU_OBJECT_PARAMETRIC_ERROR        100208
 #endif
-
 #ifndef GLU_OBJECT_PATH_LENGTH             100209
 #define GLU_OBJECT_PATH_LENGTH             100209
 #endif
-
 // znacznik czy wycinaæ fragment powierzchni NURBS
-
 bool hole = false;
-
 // funkcja rysuj¹ca napis w wybranym miejscu
 // (wersja korzystaj¹ca z funkcji glWindowPos2i)
-
 void DrawString(GLint x, GLint y, char * string)
 {
 	// po³o¿enie napisu
@@ -187,89 +172,56 @@ void DrawString(GLint x, GLint y, char * string)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, string[i]);
 
 }
-
 // funkcja generuj¹ca scenê 3D
-
 void DisplayScene()
 {
 	// kolor t³a - zawartoœæ bufora koloru
 	glClearColor(1.0, 1.0, 1.0, 1.0);
-
 	// czyszczenie bufora koloru i bufora g³êbokoœci
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	// wybór macierzy modelowania
 	glMatrixMode(GL_MODELVIEW);
-
 	// macierz modelowania = macierz jednostkowa
 	glLoadIdentity();
-
 	// w³¹czenie testu bufora g³êbokoœci
 	glEnable(GL_DEPTH_TEST);
-
 	// przesuniêcie uk³adu wspó³rzêdnych obiektu do œrodka bry³y odcinania
 	glTranslatef(0, 0, -(near + far) / 2);
-
 	// obroty obiektu
 	glRotatef(rotatex, 1.0, 0, 0);
 	glRotatef(rotatey, 0, 1.0, 0);
-
 	// skalowanie obiektu - klawisze "+" i "-"
 	glScalef(scale, scale, scale);
-
 	// w³¹czenie efektów oœwietlenia, gry renderowana jest wype³niona powierzchnia
 	if (display_mode == GLU_FILL)
 	{
 		// w³¹czenie oœwietlenia
 		glEnable(GL_LIGHTING);
-
 		// w³¹czenie œwiat³a GL_LIGHT0 z parametrami domyœlnymi
 		glEnable(GL_LIGHT0);
-
 		// w³¹czenie automatycznej normalizacji wektorów normalnych
 		glEnable(GL_NORMALIZE);
-
 		// w³aœciwoœci materia³u
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
-
 		// w³¹czenie automatycznego generowania wektorów normalnych
 		glEnable(GL_AUTO_NORMAL);
 	}
-
 	// kolor krawêdzi
 	glColor3fv(Black);
-
 	// utworzenie obiektu NURBS
 	GLUnurbsObj * nurbs = gluNewNurbsRenderer();
-
 	// pocz¹tek definicji powierzchni NURBS
 	gluBeginSurface(nurbs);
-
 	// sposób renderowania powierzchni NURBS
 	gluNurbsProperty(nurbs, GLU_DISPLAY_MODE, display_mode);
-
 	// metoda podzia³u powierzchni NURBS na wielok¹ty
 	gluNurbsProperty(nurbs, GLU_SAMPLING_METHOD, sampling_method);
-
 	// narysowanie powierzchni
-	gluNurbsSurface(nurbs, 8, knots, 8, knots, 4 * 3, 3, points, 4, 4, GL_MAP2_VERTEX_3);
-
+	gluNurbsSurface(nurbs, 10, knots, 10, knots, i, 3, points, 5,5, GL_MAP2_VERTEX_3);
 	// rysowanie dziury w powierzchni NURBS
-	if (hole)
-	{
-		// zewnêtrzna krzywa wycinaj¹ca
-		gluBeginTrim(nurbs);
-		gluPwlCurve(nurbs, 5, outline_pwl, 2, GLU_MAP1_TRIM_2);
-		gluEndTrim(nurbs);
-
-		// wewnêtrzna krzywa wycinaj¹ca
-		gluBeginTrim(nurbs);
-		gluPwlCurve(nurbs, 5, hole_pwl, 2, GLU_MAP1_TRIM_2);
-		gluEndTrim(nurbs);
-	}
 
 	// koniec definicji powierzchni
 	gluEndSurface(nurbs);
@@ -297,11 +249,9 @@ void DisplayScene()
 
 	// narysowanie punktów kontrolnych
 	glBegin(GL_POINTS);
-	for (int i = 0; i < 4*4*3; i++)
+	for (int i = 0; i <5*5; i++)
 		glVertex3fv(points + i * 3);
-
 	glEnd();
-
 	// wyœwietlenie informacji o wybranych w³aœciwoœciach powierzchni NURBS
 	glColor3fv(Black);
 
@@ -325,7 +275,6 @@ void DisplayScene()
 				DrawString(2, 2, "GLU_SAMPLING_METHOD = GLU_OBJECT_PATH_LENGTH");
 
 	}
-
 	// sposób renderowania powierzchni NURBS
 	if (display_mode == GLU_FILL)
 		DrawString(2, 16, "GLU_DISPLAY_MODE = GLU_FILL");
@@ -335,10 +284,8 @@ void DisplayScene()
 		else
 			if (display_mode == GLU_OUTLINE_POLYGON)
 				DrawString(2, 16, "GLU_DISPLAY_MODE = GLU_OUTLINE_POLYGON");
-
 	// skierowanie poleceñ do wykonania
 	glFlush();
-
 	// zamiana buforów koloru
 	glutSwapBuffers();
 }
@@ -381,14 +328,18 @@ void Reshape(int width, int height)
 void Keyboard(unsigned char key, int x, int y)
 {
 	// klawisz +
-	if (key == '+')
+	if (key == '+') {
 		scale += 0.05;
-	else
-
+		i++;
+	}
+	else {
 		// klawisz -
 		if (key == '-' && scale > 0.05)
+		{
+			i--;
 			scale -= 0.05;
-
+		}
+	}
 	// narysowanie sceny
 	DisplayScene();
 }
