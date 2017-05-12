@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Lab7zaj9">
       <UniqueIdentifier>{136df267-6387-4350-832b-491b31e430dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Lab8Zaj10">
+      <UniqueIdentifier>{3e678d1e-70c1-403d-b252-c4717e0acc7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\packages\nupengl.core.0.1.0.1\build\native\include\GLUT\targa.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab8zaj10program1.cpp">
+      <Filter>Source Files\Lab8Zaj10</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

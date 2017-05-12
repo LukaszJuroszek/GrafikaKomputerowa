@@ -143,6 +143,7 @@
     <ClCompile Include="Lab6zaj7program2.cpp" />
     <ClCompile Include="Lab6zaj8program1.cpp" />
     <ClCompile Include="Lab7zaj9program1.cpp" />
+    <ClCompile Include="Lab8zaj10program1.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
