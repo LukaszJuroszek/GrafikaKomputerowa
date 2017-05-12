@@ -114,17 +114,17 @@ GLfloat points[5 * 5 * 3] =
 	-1.0,	0.5,	0.0,
 	-1.0,	1.0,	0.0,
 
-	-0.5,	-1.0,	1.0,
-	-0.5,	-0.5,	2.0,
-	-0.5,	0.0,	2.0,
-	-0.5,	0.5,	2.0,
-	-0.5,	1.0,	1.0,
+	-0.5,	-1.0,	0.1,
+	-0.5,	-0.5,	0.4,
+	-0.5,	0.0,	0.4,
+	-0.5,	0.5,	0.4,
+	-0.5,	1.0,	0.1,
 
-	0.0,	-1.0,	1.0,
-	0.0,	-0.5,	2.0,
-	0.0,	0.0,	2.0,
-	0.0,	0.5,	2.0,
-	0.0,	1.0,	1.0,
+	0.0,	-1.0,	0.1,
+	0.0,	-0.5,	0.4,
+	0.0,	0.0,	0.4,
+	0.0,	0.5,	0.4,
+	0.0,	1.0,	0.1,
 
 	0.5,	-1.0,	0.0,
 	0.5,	-0.5,	0.0,
@@ -146,7 +146,7 @@ GLfloat knots[11] =
 	0,0,0,0,0,
 	1,1,1,1,1,1
 };
-int i =5*3;
+int i = 5;
 // znacznik dostêpnoœci biblioteki GLU w wersji 1.3
 bool GLU_1_3 = false;
 // definicje metod podzia³u powierzchni NURBS na
@@ -220,7 +220,7 @@ void DisplayScene()
 	// metoda podzia³u powierzchni NURBS na wielok¹ty
 	gluNurbsProperty(nurbs, GLU_SAMPLING_METHOD, sampling_method);
 	// narysowanie powierzchni
-	gluNurbsSurface(nurbs, 10, knots, 10, knots, i, 3, points, 5,5, GL_MAP2_VERTEX_3);
+	gluNurbsSurface(nurbs, 10, knots, 10, knots, 5 * 3, 3, points, 5, 5, GL_MAP2_VERTEX_3);
 	// rysowanie dziury w powierzchni NURBS
 
 	// koniec definicji powierzchni
@@ -249,7 +249,7 @@ void DisplayScene()
 
 	// narysowanie punktów kontrolnych
 	glBegin(GL_POINTS);
-	for (int i = 0; i <5*5; i++)
+	for (int i = 0; i < 5 * 5; i++)
 		glVertex3fv(points + i * 3);
 	glEnd();
 	// wyœwietlenie informacji o wybranych w³aœciwoœciach powierzchni NURBS

@@ -1,5 +1,6 @@
 ﻿//#include <windows.h> // plik nagłówkowy dla Windows
 //#include <math.h> // plik nagłówkowy dla biblioteki matematycznej
+//#include <iostream>
 //#include <stdio.h> // plik nagłówkowy dla we/wy standardowego
 //#include <stdlib.h> // plik nagłówkowy dla bibioteki standardowej
 //#include <GL\glu.h> // plik nagłówkowy dla biblioteki GLu32
@@ -8,6 +9,7 @@
 //#include <GLUT\targa.h>
 //#define _USE_MATH_DEFINES
 ////n= 5
+//using namespace std;
 //enum
 //{
 //	VENUS_TEX, // Wenus
@@ -17,15 +19,16 @@
 //	ASPECT_1_1, // aspekt obrazu 1:1
 //	EXIT // wyjście
 //};
+//double t = 0.0;
 //// aspekt obrazu
 //int aspect = ASPECT_1_1;
 //// rozmiary bryły obcinania
-//const GLdouble left = -2.0;
-//const GLdouble right = 2.0;
-//const GLdouble bottom = -2.0;
-//const GLdouble top = 2.0;
-//const GLdouble near_ = -4.0;
-//const GLdouble far_ = 4.0;
+//const double leftt = -2.0;
+//const double rightt = 2.0;
+//const double bottom = -2.0;
+//const double top = 2.0;
+//const double near_ = -4.0;
+//const double far_ = 4.0;
 //// kąty obrotu
 //GLfloat rotatex = 0.0;
 //GLfloat rotatez = 0.0;
@@ -70,7 +73,8 @@
 //// making new point
 //POINT_3D makePoint(double a, double b, double c) {
 //	POINT_3D p;
-//	p.x = a; p.y = b; p.z = c;
+//	p.x = a; p.y = b;	p.z = c;
+//
 //	return p;
 //}
 ////function for calculation of 3rd order polynomial (each counterpart in Bezie curve equation
@@ -87,7 +91,7 @@
 //	c = pointTimes(3 * u*pow((1 - u), 2), p[2]);
 //	d = pointTimes(pow((1 - u), 3), p[3]);
 //	r = pointAdd(pointAdd(a, b), pointAdd(c, d));
-//	return r;
+////	return r;
 //}
 ////this function generates all slices of triangles and stores them in display list.
 //// we do it in order not to recalculate fragment during each frame.
@@ -146,11 +150,13 @@
 //	return drawlist;
 //}
 //void initBezier(void) {
-//
 //	for (int i = 0; i < 4; i++)
-//		for (int p = 0; p < 5; p++)
-//			mybezier.anchors[i][p] = makePoint(i-1, p-1, 0);
-//
+//		for (int p = 0; p < 5; p++) {
+//			mybezier.anchors[i][p] = makePoint(i - 1.5, p - 1.5, .1);
+//			//mybezier.anchors[i][p].x = mybezier.anchors[i][p].x*sin(5 * t);
+//			//mybezier.anchors[i][p].y = mybezier.anchors[i][p].y*sin(5 * t);
+//			mybezier.anchors[i][p].z = mybezier.anchors[i][p].z*sin(1* t++);
+//		}
 //	mybezier.dlBPatch = NULL;
 //}
 //int InitGL(GLvoid)
@@ -190,6 +196,7 @@
 //	return TRUE;
 //}
 //void DrawGLScene(GLvoid) {
+//
 //	int i, j;
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	////////////////////
@@ -205,6 +212,7 @@
 //	glScalef(scale, scale, scale);
 //	glCallList(mybezier.dlBPatch);
 //	BOOL showCPoint = TRUE;
+//	cout << sin(5 * (t)) << endl;
 //	if (showCPoints)
 //	{
 //		glDisable(GL_TEXTURE_2D);
@@ -213,13 +221,13 @@
 //		glPointSize(2.0);
 //		for (i = 0; i < 4; i++) {
 //			glBegin(GL_LINE_STRIP);
-//			for (j = 0; j <5; j++)
+//			for (j = 0; j < 5; j++)
 //				glVertex3d(mybezier.anchors[i][j].x, mybezier.anchors[i][j].y, mybezier.anchors[i][j].z);
 //			glEnd();
 //		}
-//		for (i = 0; i <4; i++) {
+//		for (i = 0; i < 4; i++) {
 //			glBegin(GL_LINE_STRIP);
-//			for (j = 0; j <4 ; j++)
+//			for (j = 0; j < 4; j++)
 //				glVertex3d(mybezier.anchors[j][i].x, mybezier.anchors[j][i].y, mybezier.anchors[j][i].z);
 //			glEnd();
 //		}
@@ -262,7 +270,7 @@
 //{
 //	if (button_state == GLUT_DOWN)
 //	{
-//		rotatez += 30 * (right - left) / glutGet(GLUT_WINDOW_WIDTH) * (x - button_x);
+//		rotatez += 30 * (rightt - leftt) / glutGet(GLUT_WINDOW_WIDTH) * (x - button_x);
 //		button_x = x;
 //		rotatex -= 30 * (top - bottom) / glutGet(GLUT_WINDOW_HEIGHT) * (button_y - y);
 //		button_y = y;
@@ -281,6 +289,12 @@
 //	// narysowanie sceny
 //	DrawGLScene();
 //}
+//void TimerFunction(int value) {
+//	t += 0.001;
+//	InitGL();
+//	glutDisplayFunc(DrawGLScene);
+//	glutTimerFunc(100, TimerFunction, 1);
+//}
 //int main(int argc, char *argv[])
 //{
 //	// inicjalizacja biblioteki GLUT
@@ -294,6 +308,7 @@
 //	glutCreateWindow("Krzywa Beziera");
 //	// dołączenie funkcji generującej scenę 3D
 //	glutDisplayFunc(DrawGLScene);
+//	glutTimerFunc(10, TimerFunction, 1);
 //	// dołączenie funkcji wywoływanej przy zmianie rozmiaru okna
 //	glutReshapeFunc(resize);
 //	//glutReshapeFunc(Reshape);
@@ -303,7 +318,6 @@
 //	glutMouseFunc(MouseButton);
 //	// obsługa ruchu kursora myszki
 //	glutMotionFunc(MouseMotion);
-//	InitGL();
 //	// wprowadzenie programu do obsługi pętli komunikatów
 //	glutMainLoop();
 //	// porządki
