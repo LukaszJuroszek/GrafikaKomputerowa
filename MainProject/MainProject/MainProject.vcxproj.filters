@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Lab8Zaj10">
       <UniqueIdentifier>{3e678d1e-70c1-403d-b252-c4717e0acc7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Lab9zaj11">
+      <UniqueIdentifier>{a9b38024-9862-4cd8-aca8-940dda867b26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -113,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="Lab8zaj10program1.cpp">
       <Filter>Source Files\Lab8Zaj10</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab9zaj11program1.cpp">
+      <Filter>Source Files\Lab9zaj11</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
